@@ -14,6 +14,9 @@ import { SignInComponent } from './features/auth/sign-in/sign-in.component';
 import { SignUpComponent } from './features/auth/sign-up/sign-up.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MainNavbarComponent } from './features/dashboard/components/main-navbar/main-navbar.component';
+import { TripComponent } from './features/dashboard/pages/trip/trip.component';
+import { TopNavbarComponent } from './features/dashboard/components/top-navbar/top-navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SignInComponent,
     SignUpComponent,
     NotFoundComponent,
+    MainNavbarComponent,
+    TripComponent,
+    TopNavbarComponent,
   ],
   imports: [
     BrowserModule,

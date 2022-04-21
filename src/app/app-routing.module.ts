@@ -8,6 +8,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./lazy/lazy.module').then((m) => m.LazyModule),
+  },
   { path: '**', component: NotFoundComponent },
 ];
 

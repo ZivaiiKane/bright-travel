@@ -23,6 +23,7 @@
     "@angular/router": "~13.3.0",
     "@ngrx/effects": "^13.1.0",
     "@ngrx/store": "^13.1.0",
+    "angular-responsive-carousel": "^2.1.2",
     "firebase": "^9.6.11",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

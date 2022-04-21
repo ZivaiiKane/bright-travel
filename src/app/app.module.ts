@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -17,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MainNavbarComponent } from './features/dashboard/components/main-navbar/main-navbar.component';
 import { TripComponent } from './features/dashboard/pages/trip/trip.component';
 import { TopNavbarComponent } from './features/dashboard/components/top-navbar/top-navbar.component';
+import { ImageSliderComponent } from './features/dashboard/components/image-slider/image-slider.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { TopNavbarComponent } from './features/dashboard/components/top-navbar/t
     MainNavbarComponent,
     TripComponent,
     TopNavbarComponent,
+    ImageSliderComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { TopNavbarComponent } from './features/dashboard/components/top-navbar/t
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    IvyCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

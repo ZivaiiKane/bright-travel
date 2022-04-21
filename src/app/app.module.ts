@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { SignInComponent } from './features/auth/sign-in/sign-in.component';
 import { SignUpComponent } from './features/auth/sign-up/sign-up.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

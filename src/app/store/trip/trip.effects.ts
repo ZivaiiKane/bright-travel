@@ -23,6 +23,7 @@ export class TripEffects {
       ),
       catchError((error) => {
         this.snackBar.open('Failed to get trips.');
+        console.error(error);
         return EMPTY;
       })
     );
@@ -36,6 +37,7 @@ export class TripEffects {
           map(() => TripActions.getAllUserTrips()),
           catchError((error) => {
             this.snackBar.open('Failed to add your trip.');
+            console.error(error);
             return EMPTY;
           })
         )
@@ -58,6 +60,7 @@ export class TripEffects {
             ),
             catchError((error) => {
               this.snackBar.open('Failed to update your itinerary.');
+              console.error(error);
               return EMPTY;
             })
           )
@@ -73,6 +76,7 @@ export class TripEffects {
           map(() => TripActions.deleteTrip({ tripId })),
           catchError((error) => {
             this.snackBar.open('Failed to delete your itinerary.');
+            console.error(error);
             return EMPTY;
           })
         )
@@ -88,6 +92,7 @@ export class TripEffects {
           map(() => TripActions.deleteItineraryItem({ tripId, removedTrip })),
           catchError((error) => {
             this.snackBar.open('Failed to delete your itinerary.');
+            console.error(error);
             return EMPTY;
           })
         )
@@ -95,20 +100,20 @@ export class TripEffects {
     );
   });
 
-  //   sortTrips$ = createEffect(() => {
-  //     return this.actions$.pipe(
-  //       ofType(TripActions.sortTrips),
-  //       mergeMap(async ({ sortedTrips }) =>
-  //         this.tripsService.sortTrips(sortedTrips).pipe(
-  //           map(() => TripActions.sortTrips({ sortedTrips })),
-  //           catchError((error) => {
-  //             this.snackBar.open('Failed to delete your itinerary.');
-  //             return EMPTY;
-  //           })
-  //         )
-  //       )
-  //     );
-  //   });
+  sortTrips$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TripActions.sortTrips),
+      mergeMap(({ sortedTrips }) =>
+        this.tripsService.sortTrips(sortedTrips).pipe(
+          map(() => TripActions.sortTrips({ sortedTrips })),
+          catchError((error) => {
+            this.snackBar.open('Failed to delete your itinerary.');
+            return EMPTY;
+          })
+        )
+      )
+    );
+  });
 
   constructor(
     private actions$: Actions,

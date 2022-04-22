@@ -19,7 +19,7 @@ export const updateItineraryItem = createAction(
 export const getAllUserTrips = createAction('[Trip] getAllUserTrips');
 
 export const getUserTripsCompelete = createAction(
-  '[Trip] getUersCompolete',
+  '[Trip] getUserTripsComplete',
   props<{ userTrips: Trip[] }>()
 );
 

@@ -1,0 +1,34 @@
+<mat-card
+  class="bg-gray-100 border-2 border-dashed outer-card border-slate-400"
+>
+  <mat-card-header>
+    <ng-content></ng-content>
+    <mat-card-title>
+      {{ trips.destination }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ trips.id }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <div
+    class="trips"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="tripDrop($event)"
+  >
+    <div
+      class="border-2 border-dashed rounded bg-slate-400 inner-card"
+      cdkDrag
+      *ngFor="let trip of trips.itinerary; let i = index"
+      (click)="openDialog(trip, i)"
+    >
+      <mat-card [ngClass]="trip.tag">{{ trip.description }}</mat-card>
+    </div>
+
+    <button name="add" mat-stroked-button (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <app-delete-button (delete)="handleDelete()"></app-delete-button>
+  </div>
+</mat-card>

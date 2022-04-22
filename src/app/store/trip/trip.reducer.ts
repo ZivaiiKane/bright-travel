@@ -19,6 +19,7 @@ export const initialState: TripState = {
     destination: '',
     priority: 0,
     itinerary: [],
+    userId: '',
   },
   selectedTrip: null,
 };

@@ -4,7 +4,7 @@
   class="flex flex-row flex-wrap itineraries"
   (cdkDropListDropped)="drop($event)"
 >
-  <app-trips cdkDrag *ngFor="let trip of trips" [trips]="trips">
+  <app-trips cdkDrag *ngFor="let trip of trips" [trips]="trip">
     <mat-icon cdkDragHandle class="handle">drag_indicator</mat-icon>
   </app-trips>
 

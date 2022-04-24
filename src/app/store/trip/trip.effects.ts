@@ -48,22 +48,20 @@ export class TripEffects {
   updateItineraryItem$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TripActions.updateItineraryItem),
-      mergeMap(({ updatedItineraryItem, tripId }) =>
-        this.tripsService
-          .updateItineraryItem(tripId, updatedItineraryItem)
-          .pipe(
-            map(() =>
-              TripActions.updateItineraryItem({
-                updatedItineraryItem: updatedItineraryItem,
-                tripId: tripId,
-              })
-            ),
-            catchError((error) => {
-              this.snackBar.open('Failed to update your itinerary.');
-              console.error(error);
-              return EMPTY;
+      mergeMap(({ itinerary, tripId }) =>
+        this.tripsService.updateItineraryItem(tripId, itinerary).pipe(
+          map(() =>
+            TripActions.updateItineraryItem({
+              itinerary: itinerary,
+              tripId: tripId,
             })
-          )
+          ),
+          catchError((error) => {
+            this.snackBar.open('Failed to update your itinerary.');
+            console.error(error);
+            return EMPTY;
+          })
+        )
       )
     );
   });
@@ -103,11 +101,11 @@ export class TripEffects {
   sortTrips$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TripActions.sortTrips),
-      mergeMap(({ sortedTrips }) =>
-        this.tripsService.sortTrips(sortedTrips).pipe(
-          map(() => TripActions.sortTrips({ sortedTrips })),
+      mergeMap(({ userTrips }) =>
+        this.tripsService.sortTrips(userTrips).pipe(
+          map(() => TripActions.sortTrips({ userTrips })),
           catchError((error) => {
-            this.snackBar.open('Failed to delete your itinerary.');
+            this.snackBar.open('Failed to sort itinerary items.');
             return EMPTY;
           })
         )

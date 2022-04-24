@@ -8,7 +8,7 @@ import {
   updateItineraryItem,
 } from 'src/app/store/trip/trip.actions';
 import { ItineraryItem } from 'src/app/shared/models/trip.models';
-import { ItineraryDialogComponent } from 'src/app/features/dialogs/itinerary-dialog/itinerary-dialog.component';
+import { TripDialogComponent } from 'src/app/features/dialogs/trip-dialog/trip-dialog.component';
 
 @Component({
   selector: 'app-trips',
@@ -27,18 +27,18 @@ export class TripsComponent {
       event.currentIndex
     );
 
-    const updatedItineraryItem = [...this.trips.itinerary];
+    const itinerary = [...this.trips.itinerary];
 
     const tripId = this.trips.id;
 
-    this.tripStore.dispatch(
-      updateItineraryItem({ updatedItineraryItem, tripId })
-    );
+    console.log('Delete id: ', tripId);
+
+    this.tripStore.dispatch(updateItineraryItem({ itinerary, tripId }));
   }
 
   openDialog(itineraryItem?: ItineraryItem, indx?: number): void {
-    const newItineraryItem = { tag: 'green' };
-    const dialogRef = this.dialog.open(ItineraryDialogComponent, {
+    const newItineraryItem = { tag: 'yellow' };
+    const dialogRef = this.dialog.open(TripDialogComponent, {
       width: '400px',
       data: itineraryItem
         ? {
@@ -60,7 +60,7 @@ export class TripsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.isNew) {
-          const updatedItineraryItem: ItineraryItem[] = [
+          const itinerary: ItineraryItem[] = [
             ...this.trips.itinerary,
             {
               ...result.itineraryItem,
@@ -71,23 +71,19 @@ export class TripsComponent {
 
           const tripId = this.trips.id;
 
-          this.tripStore.dispatch(
-            updateItineraryItem({ updatedItineraryItem, tripId })
-          );
+          this.tripStore.dispatch(updateItineraryItem({ itinerary, tripId }));
         } else {
-          const update = this.trips.itinerary;
+          const update = [...this.trips.itinerary];
+
+          console.log('Update: ', update);
 
           update.splice(result.indx, 1, result.itineraryItem);
 
-          const updatedItineraryItem: ItineraryItem[] = [
-            ...this.trips.itinerary,
-          ];
+          const itinerary: ItineraryItem[] = [...this.trips.itinerary];
 
           const tripId = this.trips.id;
 
-          this.tripStore.dispatch(
-            updateItineraryItem({ updatedItineraryItem, tripId })
-          );
+          this.tripStore.dispatch(updateItineraryItem({ itinerary, tripId }));
         }
       }
     });

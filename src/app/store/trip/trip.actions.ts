@@ -13,7 +13,7 @@ export const deleteTrip = createAction(
 
 export const updateItineraryItem = createAction(
   '[Trip] updateItineraryItem',
-  props<{ updatedItineraryItem: ItineraryItem[]; tripId: string }>()
+  props<{ itinerary: ItineraryItem[]; tripId: string }>()
 );
 
 export const getAllUserTrips = createAction('[Trip] getAllUserTrips');
@@ -25,7 +25,7 @@ export const getUserTripsCompelete = createAction(
 
 export const sortTrips = createAction(
   '[Trip] sortTrips',
-  props<{ sortedTrips: Trip[] }>()
+  props<{ userTrips: Trip[] }>()
 );
 
 export const deleteItineraryItem = createAction(

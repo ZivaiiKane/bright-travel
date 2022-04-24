@@ -1,13 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Trip } from 'src/app/shared/models/trip.models';
 import { TripsService } from '../../services/trips.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ItineraryDialogComponent } from 'src/app/features/dialogs/itinerary-dialog/itinerary-dialog.component';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { TripState } from 'src/app/store/trip/trip.reducer';
-import { addTrip, getAllUserTrips } from 'src/app/store/trip/trip.actions';
+import {
+  addTrip,
+  getAllUserTrips,
+  sortTrips,
+} from 'src/app/store/trip/trip.actions';
+import * as TripsSelectors from 'src/app/store/trip/trip.selectors';
 
 @Component({
   selector: 'app-trip-list',
@@ -15,7 +20,9 @@ import { addTrip, getAllUserTrips } from 'src/app/store/trip/trip.actions';
   styleUrls: ['./trip-list.component.scss'],
 })
 export class TripListComponent implements OnInit, OnDestroy {
+  trips$: Observable<Trip[]> | undefined;
   trips!: Trip[];
+  isLoading$: Observable<boolean> | undefined;
   sub!: Subscription;
 
   constructor(
@@ -26,6 +33,15 @@ export class TripListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tripStore.dispatch(getAllUserTrips());
+
+    this.isLoading$ = this.tripStore.pipe(
+      select(TripsSelectors.selectIsLoading)
+    );
+
+    this.trips$ = this.tripStore.pipe(select(TripsSelectors.selectUserTrips));
+
+    this.trips$ = this.tripStore.pipe(select(TripsSelectors.selectUserTrips));
+    this.trips$.subscribe((val) => (this.trips = val));
   }
 
   ngOnDestroy(): void {
@@ -33,8 +49,13 @@ export class TripListComponent implements OnInit, OnDestroy {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.trips, event.previousIndex, event.currentIndex);
-    this.tripsService.sortTrips(this.trips);
+    const tripsArr = [...this.trips];
+
+    moveItemInArray(tripsArr, event.previousIndex, event.currentIndex);
+
+    const userTrips: Trip[] = tripsArr;
+
+    this.tripStore.dispatch(sortTrips({ userTrips }));
   }
 
   openTripDialog(): void {
@@ -45,7 +66,6 @@ export class TripListComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        debugger;
         const newTrip: Trip = {
           id: '',
           userId: '',

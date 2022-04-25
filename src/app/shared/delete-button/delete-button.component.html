@@ -1,0 +1,13 @@
+<button
+  mat-button
+  color="warn"
+  (click)="canDelete ? deleteTrip() : prepareForDelete()"
+  name="warning"
+>
+  <mat-icon>delete</mat-icon>
+  <span *ngIf="canDelete">confirm</span>
+</button>
+
+<button name="cancel" *ngIf="canDelete" mat-button (click)="cancel()">
+  Cancel
+</button>

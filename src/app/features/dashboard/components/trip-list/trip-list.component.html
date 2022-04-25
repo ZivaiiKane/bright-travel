@@ -1,0 +1,23 @@
+<div
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  class="flex flex-row flex-wrap itineraries"
+  (cdkDropListDropped)="drop($event)"
+>
+  <app-trips cdkDrag *ngFor="let trip of trips" [trips]="trip">
+    <mat-icon cdkDragHandle class="handle">drag_indicator</mat-icon>
+  </app-trips>
+
+  <div
+    class="itinerary-button w-[300px] h-[244px] flex justify-center border-2 border-slate-300 border-dashed rounded m-[10px]"
+  >
+    <button
+      name="new-itinerary"
+      class="h-10 px-4 py-2 m-auto transition-all border-2 text-cyan-600 border-cyan-600 new-btn"
+      cdkDragDisabled
+      (click)="openTripDialog()"
+    >
+      <i class="fa-solid fa-plus"></i> New Trip
+    </button>
+  </div>
+</div>

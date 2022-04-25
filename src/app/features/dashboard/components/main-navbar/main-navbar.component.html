@@ -1,0 +1,43 @@
+<nav
+  class="fixed z-[999] w-20 h-screen transition-all bg-gray-100 navbar hover:w-64"
+>
+  <ul
+    class="flex flex-col items-center h-full p-0 m-0 text-gray-700 list-none navbar-nav"
+  >
+    <li class="nav-item hover:bg-gray-200">
+      <a href="" class="transition-all nav-link" routerLink="dashboard">
+        <i class="fa-solid fa-caravan fa-xl"></i>
+        <span class="link-text">Explore</span>
+      </a>
+    </li>
+
+    <li class="nav-item hover:bg-gray-200">
+      <a href="" class="transition-all nav-link" routerLink="dashboard">
+        <i class="fa-solid fa-calendar-day fa-xl"></i>
+        <span class="link-text">Calendar</span>
+      </a>
+    </li>
+
+    <li class="nav-item hover:bg-gray-200">
+      <a href="" class="transition-all nav-link" routerLink="dashboard">
+        <i class="fa-solid fa-timeline fa-xl"></i>
+        <span class="link-text">Timeline</span>
+      </a>
+    </li>
+
+    <li class="nav-item hover:bg-gray-200">
+      <a href="" class="transition-all nav-link" routerLink="dashboard">
+        <i class="fa-solid fa-user fa-xl"></i>
+        <span class="link-text">Profile</span>
+      </a>
+    </li>
+
+    <li class="nav-item hover:bg-gray-200" (click)="auth.signOut()">
+      <a href="" class="transition-all nav-link">
+        <i class="fa-solid fa-door-open fa-xl"></i>
+        <span class="link-text">Logout</span>
+      </a>
+    </li>
+  </ul>
+  >
+</nav>

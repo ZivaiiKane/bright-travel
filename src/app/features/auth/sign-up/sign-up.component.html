@@ -1,0 +1,80 @@
+<div class="flex flex-col justify-center w-full h-screen">
+  <form [formGroup]="signupForm" (ngSubmit)="submit()" class="w-64 mx-auto">
+    <div class="w-full py-1">
+      <label for="email" class="text-lg font-normal text-slate-500"
+        >Username</label
+      >
+      <input
+        type="text"
+        id="email"
+        required
+        placeholder="JohnDoe123"
+        formControlName="username"
+        name="username"
+        class="w-full mt-1 h-12 px-2 border-[2.3px] border-slate-500 text-slate-500"
+      />
+      <p
+        class="bg-red-400 text-white text-sm px-3 py-[0.025rem] mt-2 absolute z-10 top-[30.4%] left-[47.8%]"
+        *ngIf="username?.hasError('required')"
+      >
+        A username is required
+      </p>
+    </div>
+
+    <div class="w-full py-1">
+      <label for="email" class="text-lg font-normal text-slate-500"
+        >Email</label
+      >
+      <input
+        type="text"
+        id="email"
+        required
+        placeholder="johndoe@mail.com"
+        formControlName="email"
+        name="email"
+        class="w-full mt-1 h-12 px-2 border-[2.3px] border-slate-500 text-slate-500"
+      />
+      <p
+        class="bg-red-400 text-white text-sm px-3 py-[0.025rem] mt-2 absolute z-10 top-[39.2%] left-[49.4%]"
+        *ngIf="email?.hasError('required')"
+      >
+        A email is required
+      </p>
+    </div>
+
+    <div class="w-full py-1">
+      <label for="password" class="text-lg font-normal text-slate-500"
+        >Password</label
+      >
+
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+        class="w-full mt-1 h-12 px-2 border-[2.3px] border-slate-500 text-slate-500"
+        required
+        formControlName="password"
+      />
+      <p
+        class="bg-red-400 text-white text-sm px-3 py-[0.025rem] mt-2 absolute z-10 top-[48.2%] left-[47.8%]"
+        *ngIf="password?.hasError('required')"
+      >
+        A password is required
+      </p>
+    </div>
+
+    <button
+      type="submit"
+      class="w-64 auth-btn py-2 mt-5 font-normal border-[2.3px] text-cyan-600 border-cyan-600 transition-all"
+      name="sign-up"
+    >
+      Sign up
+    </button>
+  </form>
+
+  <p class="mx-auto mt-8 text-center w-60 text-slate-500">
+    Already have an account?
+    <a routerLink="/sign-in" class="underline text-cyan-600">Sign in</a>
+  </p>
+</div>

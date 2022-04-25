@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Trip</h1>
+<div mat-dialog-content>
+  <p>Trip title (trip destination)</p>
+  <mat-form-field>
+    <input placeholder="title" matInput [(ngModel)]="data.destination" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button name="cancel" mat-button (click)="onNoClick()">Cancel</button>
+  <button name="add-ininerary" mat-button [mat-dialog-close]="data.destination">
+    Add
+  </button>
+</div>

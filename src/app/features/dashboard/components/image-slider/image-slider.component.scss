@@ -1,0 +1,13 @@
+carousel {
+  height: 28rem !important;
+}
+
+.carousel-cell img {
+  object-fit: cover !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .slider {
+    width: 100%;
+  }
+}

@@ -8,7 +8,7 @@ export interface Trip {
 
 export interface ItineraryItem {
   description?: string;
-  tag?: 'green' | 'yellow' | 'gray';
+  tag?: 'green' | 'yellow' | 'gray' | 'white';
   start?: Date;
   end?: Date;
   cost?: number;

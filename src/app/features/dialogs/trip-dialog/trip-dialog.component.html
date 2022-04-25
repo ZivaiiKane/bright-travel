@@ -49,8 +49,9 @@
     mat-button
     [mat-dialog-close]="data"
     cdkFocusInitial
+    name="update"
   >
     {{ data.isNew ? "Add itenerary item" : "Update itenerary item" }}
   </button>
-  <app-delete-button (delete)="deleteTrip()"></app-delete-button>
+  <app-delete-button name="delete" (delete)="deleteTrip()"></app-delete-button>
 </div>

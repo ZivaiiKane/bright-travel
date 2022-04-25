@@ -33,6 +33,7 @@ import { MatModulesModule } from './mat-modules/mat-modules.module';
 import { DeleteButtonComponent } from './shared/delete-button/delete-button.component';
 import { TripEffects } from './store/trip/trip.effects';
 import { CalendarComponent } from './features/dashboard/pages/calendar/calendar.component';
+import { TimelineComponent } from './features/dashboard/pages/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CalendarComponent } from './features/dashboard/pages/calendar/calendar.
     DeleteButtonComponent,
     TripsComponent,
     CalendarComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule,

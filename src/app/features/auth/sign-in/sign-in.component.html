@@ -1,4 +1,4 @@
-<div class="w-full h-screen flex justify-center flex-col">
+<div class="flex flex-col justify-center w-full h-screen">
   <form [formGroup]="loginForm" (ngSubmit)="submit()" class="w-64 mx-auto">
     <div class="w-full py-1">
       <label for="email" class="text-lg font-normal text-slate-500"
@@ -13,6 +13,12 @@
         name="email"
         class="w-full mt-1 h-12 px-2 border-[2.3px] border-slate-500 text-slate-500"
       />
+      <p
+        class="bg-red-400 text-white text-sm px-3 py-[0.025rem] mt-2 absolute z-10 top-[31.5%] left-[48.2%]"
+        *ngIf="email?.hasError('required')"
+      >
+        Your email is required
+      </p>
     </div>
 
     <div class="w-full py-1">
@@ -29,26 +35,34 @@
         formControlName="password"
         required
       />
+      <p
+        class="bg-red-400 text-white text-sm px-3 py-[0.025rem] mt-2 absolute z-10 top-[40.2%] left-[47.8%]"
+        *ngIf="password?.hasError('required')"
+      >
+        A password is required
+      </p>
     </div>
 
     <button
       type="submit"
-      class="w-64 py-2 mt-5 font-normal border-[2.3px] text-cyan-600 border-cyan-600 transition-all"
+      class="w-64 py-2 mt-5 font-normal border-[2.3px] text-cyan-600 border-cyan-600 transition-all auth-btn"
+      name="sign-in"
     >
       Sign in
     </button>
   </form>
 
   <button
-    class="w-64 mx-auto py-2.5 my-6 text-white transition-all auth-btn bg-cyan-600 button"
+    class="w-64 mx-auto py-2.5 my-6 text-white auth-btn bg-cyan-600 button transition-all"
     (click)="auth.googleSignin()"
+    name="sign-in-with-google"
   >
     <i class="my-2 fa-brands fa-google fa-lg"></i>
     <span> Login with Google</span>
   </button>
 
-  <p class="text-center w-60 mx-auto mt-2 text-slate-500">
+  <p class="mx-auto mt-2 text-center w-60 text-slate-500">
     Don't have an account?
-    <a routerLink="/sign-up" class="text-cyan-600 underline">Sign up</a>
+    <a routerLink="/sign-up" class="underline text-cyan-600">Sign up</a>
   </p>
 </div>

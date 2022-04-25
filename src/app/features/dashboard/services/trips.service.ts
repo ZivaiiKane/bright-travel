@@ -3,12 +3,12 @@ import firebase from 'firebase/compat/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
+  DocumentChangeAction,
   DocumentReference,
 } from '@angular/fire/compat/firestore';
 import { switchMap, map, Observable, from, mergeMap, EMPTY } from 'rxjs';
 
 import { Trip, ItineraryItem } from 'src/app/shared/models/trip.models';
-import { async } from '@firebase/util';
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +31,8 @@ export class TripsService {
               id: this.db.createId(),
               itinerary: [
                 {
-                  description: '',
-                  tag: 'green',
+                  description: 'Your trip description goes here...',
+                  tag: 'white',
                   start: today,
                   end: today,
                   cost: 0,
@@ -62,10 +62,37 @@ export class TripsService {
     );
   }
 
-  updateItineraryItem(tripId: string, itineraryItems: ItineraryItem[]) {
+  // Gets ID of trip document
+  getTripDocId(trip: Trip) {
+    if (trip?.id) return EMPTY;
+
+    return this.db
+      .collection<Trip>('trips', (ref) =>
+        ref.where('id', '==', trip.id).limit(1)
+      )
+      .snapshotChanges()
+      .pipe(
+        map((actions: DocumentChangeAction<Trip>[]) => {
+          if (actions.length === 0) return null;
+
+          return actions[0].payload.doc.id;
+        })
+      );
+  }
+
+  updateTripById(trip: Trip, id: string) {
+    if (id.length === 0) return EMPTY;
+
     return from(
-      this.db.collection('trips').doc(tripId).update({ itineraryItems })
+      this.db
+        .collection('trips')
+        .doc(id)
+        .update({ ...trip })
     );
+  }
+
+  updateItineraryItem(tripId: string, itinerary: ItineraryItem[]) {
+    return from(this.db.collection('trips').doc(tripId).update({ itinerary }));
   }
 
   getAllUserTrips() {

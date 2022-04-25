@@ -32,3 +32,13 @@ export const deleteItineraryItem = createAction(
   '[Trip] deleteItineraryItem',
   props<{ tripId: string; removedTrip: ItineraryItem }>()
 );
+
+export const updateTrip = createAction(
+  '[Trip] updateTrip',
+  props<{ trip: Trip }>()
+);
+
+export const updateTripById = createAction(
+  '[Trip] updateTripById',
+  props<{ trip: Trip; tripDocId: string }>()
+);

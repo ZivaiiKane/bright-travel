@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, merge, pipe } from 'rxjs';
-import { map, mergeMap, catchError, concatMap } from 'rxjs/operators';
+import { map, mergeMap, catchError, concatMap, first } from 'rxjs/operators';
 import { TripsService } from 'src/app/features/dashboard/services/trips.service';
 
 import * as TripActions from './trip.actions';
@@ -37,6 +37,45 @@ export class TripEffects {
           map(() => TripActions.getAllUserTrips()),
           catchError((error) => {
             this.snackBar.open('Failed to add your trip.');
+            console.error(error);
+            return EMPTY;
+          })
+        )
+      )
+    );
+  });
+
+  updateTrip$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TripActions.updateTrip),
+      concatMap((action) =>
+        this.tripsService.getTripDocId(action.trip).pipe(
+          first(),
+          map((res) => {
+            if (!res) throw new Error('Unable to find trip');
+            return TripActions.updateTripById({
+              trip: action.trip,
+              tripDocId: res,
+            });
+          }),
+          catchError((error) => {
+            this.snackBar.open('Failed to update your user by ID.');
+            console.error(error);
+            return EMPTY;
+          })
+        )
+      )
+    );
+  });
+
+  updateTripById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TripActions.updateTripById),
+      concatMap((action) =>
+        this.tripsService.updateTripById(action.trip, action.tripDocId).pipe(
+          map(() => TripActions.getAllUserTrips()),
+          catchError((error) => {
+            this.snackBar.open('Failed to update your user by ID.');
             console.error(error);
             return EMPTY;
           })
